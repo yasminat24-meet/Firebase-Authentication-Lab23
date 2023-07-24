@@ -12,34 +12,25 @@ config = {
   "storageBucket": "yasmina-8924e.appspot.com",
   "messagingSenderId": "119957533832",
   "appId": "1:119957533832:web:4c83d74542d91309fd1b3d",
-  "measurementId": "G-QC2BFH39R5"
-  "databaseURL": ""
+  "measurementId": "G-QC2BFH39R5",
+  "databaseURL": "https://yasmina-8924e-default-rtdb.europe-west1.firebasedatabase.app/"
 }
 
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+db= firebase.database()
 
 @app.route('/', methods=['GET', 'POST'])
 def signin():
     if request.method == 'POST':
        email = request.form['email']
        password = request.form['password']
-        try:
-            login_session['user'] = auth.create_user_with_email_and_password(email, password)
-            return redirect(url_for('add_tweet'))
-            except:
-                error = "Authentication failed"
-    return render_template("signin.html")
-
-
-
-
-
-
+       try:
+        login_session['user'] = auth.create_user_with_email_and_password(email, password)
+        return redirect(url_for('add_tweet'))
+    except:
+        error = "Authentication failed"
+        return render_template("signin.html")
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -58,6 +49,13 @@ def signup():
 @app.route('/add_tweet', methods=['GET', 'POST'])
 def add_tweet():
     return render_template("add_tweet.html")
+
+user= { "full_name":"yasminA", "username":"jazz", "bio":"hello"
+    
+}
+
+
+
 
 
 if __name__ == '__main__':
